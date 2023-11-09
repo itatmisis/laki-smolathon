@@ -51,7 +51,6 @@
 
             flex: 1;
             border: 0;
-            gap: 5px;
             background-color: var(--button-color, var(--background-color, white));
 
             span {
