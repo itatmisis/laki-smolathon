@@ -21,6 +21,11 @@
         font-family: 'Roboto Slab', sans-serif;
     }
 
+    :global(.secondary-text) {
+        font-size: 13px;
+        color: #d9d9d9;
+    }
+
     .wrapper {
         display: flex;
         flex-direction: column;

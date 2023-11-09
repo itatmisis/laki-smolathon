@@ -23,3 +23,10 @@ type Achievement = { name: string };
 type Category = (typeof Categories)[number];
 
 const Categories = ["Музеи", "Храмы", "Соборы", "Памятники"] as const;
+
+export type Review = {
+    photo: string;
+    name: string;
+    text: string;
+    posted_at: string;
+};

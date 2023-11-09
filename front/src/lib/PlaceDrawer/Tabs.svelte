@@ -1,12 +1,20 @@
 <script lang="ts">
     import Tab from "./Tab.svelte";
 
-    export let tab: "Описание" | "Реакции" | undefined = undefined;
+    export let type: "mini" | "info" | "reviews";
+
+    function on_click(_type: typeof type) {
+        if (type != _type) {
+            type = _type;
+        } else {
+            type = "mini";
+        }
+    }
 </script>
 
 <div>
-    <Tab text="Описание" selected={tab == "Описание"} on:click={()=>tab="Описание"} />
-    <Tab text="Реакции" num={6} selected={tab == "Реакции"} on:click={()=>tab="Реакции"} />
+    <Tab text="Описание" selected={type == "info"} on:click={() => on_click("info")} />
+    <Tab text="Реакции" num={6} selected={type == "reviews"} on:click={() => on_click("reviews")} />
 </div>
 
 <style lang="scss">
