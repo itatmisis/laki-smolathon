@@ -1,4 +1,4 @@
-import type { LngLat, YMap } from "@yandex/ymaps3-types";
+import type { DomEventHandlerObject, LngLat, YMap, YMapListener } from "@yandex/ymaps3-types";
 import Marker from "./Marker.svelte";
 import type { IconKind } from "$lib";
 import type { Feature } from "@yandex/ymaps3-types/packages/clusterer";
@@ -25,6 +25,7 @@ export async function InitMap(mapElem: HTMLElement) {
 
     map.addChild(new YMapDefaultSchemeLayer({}));
     map.addChild(new YMapDefaultFeaturesLayer({}));
+    map.addChild(createCallbacks());
 
     await initClusterer(map);
 }
@@ -56,6 +57,23 @@ async function initClusterer(map: YMap) {
     });
 
     map.addChild(clusterer);
+}
+
+function createCallbacks(): YMapListener {
+    const { YMapListener } = ymaps3;
+
+    const clickCallback = (object: DomEventHandlerObject) => {
+        if (object && object.type == "marker") {
+            console.log(object.entity.element);
+        }
+    };
+
+    const mapListener = new YMapListener({
+        layer: 'any',
+        onClick: clickCallback
+    });
+
+    return mapListener;
 }
 
 function createMarkerElement(content: IconKind | number): HTMLElement {
