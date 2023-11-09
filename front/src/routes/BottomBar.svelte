@@ -4,10 +4,10 @@
     import Icon from "$lib/Icon.svelte";
 
     type PageKind = (typeof pages)[number];
-    
+
     const pages = [
         { path: "journal", name: "Дневник", icon: "journal" },
-        { path: "map", name: "Карта", icon: "map" },
+        { path: "map", name: "Карта", icon: "pointer" },
         { path: "profile", name: "Профиль", icon: "profile" }
     ] as const;
 
@@ -23,13 +23,15 @@
 
     const on_click = (_page: PageKind) => {
         goto(_page.path);
-    }
+    };
 </script>
 
 <nav>
     {#each pages as _page}
         <button class:selected={_page.path == page_path} on:click={() => on_click(_page)}>
-            <Icon kind={_page.icon} />
+            <div class="icon-background">
+                <Icon kind={_page.icon} />
+            </div>
             <span>{_page.name}</span>
         </button>
     {/each}
@@ -39,30 +41,36 @@
     nav {
         display: flex;
         align-items: stretch;
-        flex: 0 0 60px;
+        flex: 0 0 80px;
 
         button {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-    
+
             flex: 1;
             border: 0;
+            gap: 5px;
             background-color: var(--button-color, var(--background-color, white));
 
-            --icon-size: 24px;
-    
             span {
                 font-size: 13px;
             }
-    
+
+            > .icon-background {
+                padding: 8px;
+
+                width: 40px;
+                height: 40px;
+                --icon-size: 24px;
+                border-radius: 8px;
+            }
+
             &.selected {
-                --icon-invert: 1;
-                background-color: var(--selected-color, #727272);
-    
-                span {
-                    color: white;
+                .icon-background {
+                    --icon-invert: 1;
+                    background-color: #262634;
                 }
             }
         }
