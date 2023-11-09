@@ -1,49 +1,56 @@
 <script lang="ts">
-    export let selected: "one" | "two" = "one";
+    import type { TransitionConfig } from "svelte/transition";
+    import { cubicOut } from "svelte/easing";
+
+    type Mode = "tourist" | "explorer";
+
+    export let selected: Mode = "explorer";
 
     function swap() {
-        if (selected == "one") {
-            selected = "two";
+        if (selected == "explorer") {
+            selected = "tourist";
         } else {
-            selected = "one";
+            selected = "explorer";
         }
     }
+
+    // function transition(node: HTMLElement, options: TransitionConfig) {
+    //     return {
+    //         duration: options.duration,
+    //         easing: cubicOut,
+    //         css: (t: number) => `
+    //             transform:scaleX(${t}); transform-origin: top center;
+    //         `
+    //     };
+    // }
 </script>
 
 <menu>
-    <button class:selected={selected=="one"} on:click={swap}>Режим один</button>
-    <button class:selected={selected=="two"} on:click={swap}>Режим два (название)</button>
+    {#if selected == "tourist"}
+        <button on:click={swap}>
+            <img src="svg/tourist-mode.svg" alt="Режим туриста" />
+        </button>
+    {:else}
+        <button on:click={swap}>
+            <img src="svg/explorer-mode.svg" alt="Режим приключенца" />
+        </button>
+    {/if}
 </menu>
 
 <style lang="scss">
     menu {
         display: flex;
         position: absolute;
-        justify-content: stretch;
+        width: 100%;
+        justify-content: center;
         height: 32px;
 
         top: var(--gap);
-        left: var(--gap);
-        right: var(--gap);
-        gap: var(--gap);
 
-        & :nth-child(1) {
-            flex: 1 0 100px;
-        }
-        & :nth-child(2) {
-            flex: 2 0 100px;
-        }
         button {
-            border-radius: 8px;
+            position: absolute;
+            background-color: transparent;
             border: 0;
-            background-color: var(--button-color, var(--background-color, white));
-            &.selected {
-                color: white;
-                background-color: var(--selected-color, #727272);
-            }
-            &:not(.selected) {
-                border: 1px #D9D9D9 solid;
-            }
         }
     }
 </style>
