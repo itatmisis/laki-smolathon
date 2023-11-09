@@ -1,0 +1,68 @@
+import type { LngLat, YMap } from "@yandex/ymaps3-types";
+import Marker from "./Marker.svelte";
+import type { IconKind } from "$lib";
+import type { Feature } from "@yandex/ymaps3-types/packages/clusterer";
+
+const center: LngLat = [32.045287, 54.782635];
+const zoom = 10;
+const markers: { location: LngLat }[] = [
+    { location: [32.045287, 54.780685] },
+    { location: [32.045287, 54.782635] },
+    { location: [32.046387, 54.782685] }
+];
+
+export let map: YMap | undefined = undefined;
+
+export async function InitMap(mapElem: HTMLElement) {
+    if (map === undefined) {
+        console.log("Awaiting...");
+        await ymaps3.ready;
+        console.log("Awaited!");
+    }
+
+    map = new ymaps3.YMap(mapElem, {
+        location: { center, zoom }
+    });
+
+    const { YMapDefaultSchemeLayer, YMapDefaultFeaturesLayer } = ymaps3;
+
+    map.addChild(new YMapDefaultSchemeLayer({}));
+    map.addChild(new YMapDefaultFeaturesLayer({}));
+
+    await initClusterer(map);
+}
+
+async function initClusterer(map: YMap) {
+    const { YMapClusterer, clusterByGrid } = await ymaps3.import("@yandex/ymaps3-clusterer@0.0.1");
+
+    const points: Feature[] = markers.map((marker, i) => ({
+        type: "Feature",
+        id: i.toString(),
+        geometry: { coordinates: marker.location, type: "Point" },
+        properties: {}
+    }));
+
+    const marker = (feature: Feature) =>
+        new ymaps3.YMapMarker(
+            { coordinates: feature.geometry.coordinates },
+            createMarkerElement("heart")
+        );
+
+    const cluster = (coordinates: LngLat, features: Array<Feature>) =>
+        new ymaps3.YMapMarker({ coordinates }, createMarkerElement(features.length));
+
+    const clusterer = new YMapClusterer({
+        method: clusterByGrid({ gridSize: 64 }),
+        features: points,
+        marker,
+        cluster
+    });
+
+    map.addChild(clusterer);
+}
+
+function createMarkerElement(content: IconKind | number): HTMLElement {
+    const markerElement = document.createElement("div");
+    new Marker({ target: markerElement, props: { kind: content } });
+    return markerElement;
+}
