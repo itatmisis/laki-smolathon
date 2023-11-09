@@ -1,6 +1,6 @@
 <script lang="ts">
     import Icon from "$lib/Icon.svelte";
-    import { filter_list } from "$lib/filters";
+    import { filter_list } from "$lib/core/filters";
 </script>
 
 <menu>

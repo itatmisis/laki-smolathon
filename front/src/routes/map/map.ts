@@ -2,14 +2,11 @@ import type { LngLat, YMap } from "@yandex/ymaps3-types";
 import Marker from "./Marker.svelte";
 import type { IconKind } from "$lib";
 import type { Feature } from "@yandex/ymaps3-types/packages/clusterer";
+import { PlacesList } from "$lib/core/places";
 
 const center: LngLat = [32.045287, 54.782635];
 const zoom = 10;
-const markers: { location: LngLat }[] = [
-    { location: [32.045287, 54.780685] },
-    { location: [32.045287, 54.782635] },
-    { location: [32.046387, 54.782685] }
-];
+const markers = PlacesList();
 
 export let map: YMap | undefined = undefined;
 
