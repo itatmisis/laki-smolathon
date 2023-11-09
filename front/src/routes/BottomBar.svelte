@@ -39,7 +39,7 @@
     nav {
         display: flex;
         align-items: stretch;
-        height: 60px;
+        flex: 0 0 60px;
 
         button {
             display: flex;
