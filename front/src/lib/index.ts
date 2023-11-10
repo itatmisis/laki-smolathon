@@ -10,7 +10,8 @@ export type IconKind =
     | "monument"
     | "history"
     | "church"
-    | "museum";
+    | "museum"
+    | "filter";
 
 export type JournalEntry = {
     user_photo: string | undefined;

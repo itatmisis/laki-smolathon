@@ -14,11 +14,26 @@
 </svelte:head>
 
 <style lang="scss">
+    :root {
+        --white1: #fcfcff;
+        --white2: #f0f0fb;
+        --black: #262634;
+        --gray-system: #bfbfce;
+        --gray-text: #8b8b8b;
+        --system-gray-base: #eeeeee;
+        --emphis1: #ee444f;
+        --emphis2: #ff9a29;
+        --emphis3: #f07f40;
+        --emphis4: #dc4774;
+        --success: #4ade25;
+        --failure: #de2525;
+    }
+
     :global(*) {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
-        font-family: 'Roboto Slab', sans-serif;
+        font-family: "Roboto Slab", sans-serif;
     }
 
     :global(.secondary-text) {
@@ -34,5 +49,6 @@
 
         width: 100vw;
         height: 100dvh;
+        background-color: var(--white2);
     }
 </style>
