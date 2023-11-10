@@ -12,7 +12,7 @@
         <!-- TODO: time from registration -->
         <h2>На ресурсе с {"placeholder"}</h2>
     </div>
-    <button><Icon kind="pencil"/></button>
+    <button><Icon kind="edit"/></button>
 </section>
 
 <style lang="scss">

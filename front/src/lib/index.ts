@@ -5,13 +5,18 @@ export type IconKind =
     | "map"
     | "profile"
     | "journal"
-    | "pencil"
     | "pointer"
     | "monument"
     | "history"
     | "church"
     | "museum"
-    | "filter";
+    | "filter"
+    | "ok"
+    | "cancel"
+    | "edit"
+    | "plus"
+    | "minus"
+    | "back";
 
 export type JournalEntry = {
     user_photo: string | undefined;
