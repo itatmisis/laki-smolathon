@@ -3,17 +3,20 @@
     import Filters from "./Filters.svelte";
     import ModeSwitch from "./ModeSwitch.svelte";
     import { InitMap } from "./map";
+    import Wrapper from "$lib/Wrapper.svelte";
 
     onMount(async () => {
         await InitMap(document.getElementById("map")!);
     });
 </script>
 
-<main>
-    <div id="map" />
-    <ModeSwitch />
-    <Filters />
-</main>
+<Wrapper>
+    <main>
+        <div id="map" />
+        <ModeSwitch />
+        <Filters />
+    </main>
+</Wrapper>
 
 <style lang="scss">
     main {
