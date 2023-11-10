@@ -29,7 +29,7 @@ export const CategoriesIcons: Record<Category, CategoryIcon> = {
     "Памятники": { icon: "monument", color: "#FF9A29" },
     "История": { icon: "history", color: "#F07F40" },
     "Церкви": { icon: "church", color: "#EE444F" },
-    "Музеи": { icon: "museum", color: "#FF9A29" },
+    "Музеи": { icon: "museum", color: "#DC4774" },
 };
 
 const Categories = ["Памятники", "История", "Церкви", "Музеи"] as const;
