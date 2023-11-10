@@ -27,11 +27,10 @@
         border: 1px solid #555;
         width: 100%;
         padding: 9px 4px 9px calc(20px + 24px + 5px);
-        // TODO: check if icon is too big
         background: var(--white1)
             url("icons/search.svg")
-            no-repeat 20px center;
-        background-size: 24px;
+            no-repeat 18px center;
+        background-size: 18px;
         border: 0;
         border-radius: 8px;
         &::placeholder {
