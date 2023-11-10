@@ -27,6 +27,8 @@ export async function InitMap(mapElem: HTMLElement) {
     map.addChild(new YMapDefaultFeaturesLayer({}));
     map.addChild(createCallbacks());
 
+    AddCallbacks(map);
+
     await initClusterer(map);
 }
 
@@ -80,4 +82,23 @@ function createMarkerElement(content: IconKind | number): HTMLElement {
     const markerElement = document.createElement("div");
     new Marker({ target: markerElement, props: { kind: content } });
     return markerElement;
+}
+
+function AddCallbacks(map: YMap) {
+    const { YMapListener } = ymaps3;
+
+    const clickCallback = (object: DomEventHandlerObject) => {
+        if (!object || object.type != "marker") {
+            return;
+        }
+        console.log(object.entity);
+        alert("Нажатие на маркер!")
+    };
+
+    const mapListener = new YMapListener({
+        layer: "any",
+        onClick: clickCallback
+    });
+
+    map.addChild(mapListener);
 }
