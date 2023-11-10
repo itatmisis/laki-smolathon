@@ -9,7 +9,8 @@
         {#if entry.kind == "text"}
             <p>{entry.content}</p>
         {:else if entry.kind == "image"}
-            <img src="https://www.pravmir.ru/wp-content/uploads/2018/11/2017_10_22-035_04-900x504.jpg"/>
+            <!-- svelte-ignore a11y-missing-attribute -->
+            <img src={entry.content}/>
         {/if}
     {/each}
 </div>
@@ -20,7 +21,7 @@
         flex-direction: column;
         align-items: stretch;
         gap: 8px;
-        margin: 20px;
+        margin: 8px 0;
         p {
             font-size: 15px;
             text-indent: 10px;

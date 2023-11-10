@@ -49,6 +49,7 @@
             color: var(--white1);
             background-color: var(--emphis2);
             font-size: 15px;
+            margin-bottom: 16px;
             .small {
                 font-size: 13px;
             }
