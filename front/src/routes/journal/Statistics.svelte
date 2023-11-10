@@ -21,6 +21,7 @@
 
 <style lang="scss">
     .overall {
+        font-size: 15px;
         > mark {
             background-color: #d9d9d9;
             padding: 2px 8px;

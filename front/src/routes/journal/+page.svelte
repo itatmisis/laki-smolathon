@@ -1,13 +1,18 @@
 <script>
-    import ProfileInfo from "../ProfileInfo.svelte";
+    import Icon from "$lib/Icon.svelte";
     import ProgressCard from "./ProgressCard.svelte";
+    import Search from "./Search.svelte";
     import Statistics from "./Statistics.svelte";
+
+    let search = "";
 </script>
 
 <header>
-    <ProfileInfo name="Ivan Pirogov" />
+    <Search bind:value={search} placeholder="Найти дневник"/>
+    <button>
+        <Icon kind="filter"/>
+    </button>
 </header>
-<hr />
 <div class="main">
     <Statistics />
     {#each [0, 1, 2, 3, 4] as i}
@@ -21,12 +26,18 @@
 
 <style lang="scss">
     header {
-        margin: 0 20px;
+        margin: 20px;
+        gap: 8px;
         display: flex;
-        flex-direction: column;
-    }
-    hr {
-        margin: 20px 0;
+        button {
+            flex: 0 0 56px;
+            height: 56px;
+            background-color: var(--white1);
+            border: none;
+            border-radius: 8px;
+            --icon-size: 24px;
+            padding: 16px;
+        }
     }
     .main {
         flex: 1 0 10px;
