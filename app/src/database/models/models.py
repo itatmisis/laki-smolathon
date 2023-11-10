@@ -33,7 +33,7 @@ class Notes(Base):
     id_location = Column(Integer, ForeignKey('locations.id')) # primary_key=True)
     text = Column(String, nullable=True)
     photo = Column(String, nullable=True)
-
+    marked_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
     user = relationship('Users', back_populates='note')
     location = relationship('Locations', back_populates='note')
 
