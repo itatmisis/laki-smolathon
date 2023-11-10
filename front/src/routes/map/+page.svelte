@@ -3,7 +3,6 @@
     import Filters from "./Filters.svelte";
     import ModeSwitch from "./ModeSwitch.svelte";
     import { InitMap } from "./map";
-    import Modal from "../../lib/PlaceDrawer/PlaceDrawer.svelte";
 
     onMount(async () => {
         await InitMap(document.getElementById("map")!);
@@ -14,7 +13,6 @@
     <div id="map" />
     <ModeSwitch />
     <Filters />
-    <Modal />
 </main>
 
 <style lang="scss">

@@ -1,16 +1,17 @@
+<script lang="ts">
+    import type { Place } from "$lib/core/places";
+
+    export let place: Place;
+</script>
+
 <div class="content">
-    <p>
-        Основан Владимиром Мономахом, который положил начало каменному строительству
-        на северо-востоке Руси.
-    </p>
-    <img src="https://www.pravmir.ru/wp-content/uploads/2018/11/2017_10_22-035_04-900x504.jpg"/>
-    <p>
-        3 июня 1611 года после 20-месячной осады польский король Сигизмунд III захватил город.
-        Собор стал последним рубежом обороны смолян. По одной из версий, оставшиеся в живых
-        защитники, поняв, что не смогут остановить врага, героически погибли, взорвав пороховой
-        погреб под собором. Однако захватчики не стали разрушать собор. Они перекрыли его
-        досками и устроили в нем костел.
-    </p>
+    {#each place.description as entry}
+        {#if entry.kind == "text"}
+            <p>{entry.content}</p>
+        {:else if entry.kind == "image"}
+            <img src="https://www.pravmir.ru/wp-content/uploads/2018/11/2017_10_22-035_04-900x504.jpg"/>
+        {/if}
+    {/each}
 </div>
 
 <style lang="scss">
@@ -19,5 +20,13 @@
         flex-direction: column;
         align-items: stretch;
         gap: 8px;
+        margin: 20px;
+        p {
+            font-size: 15px;
+            text-indent: 10px;
+        }
+        img {
+            border-radius: 8px;
+        }
     }
 </style>
