@@ -3,12 +3,18 @@
 
     export let label: string;
     export let placeholder: string = "";
-    export let type: HTMLInputTypeAttribute = "text";
+    export let type: "text" | "password" = "text";
+
+    export let value: string;
 </script>
 
 <label>
     <span>{label}</span>
-    <input {placeholder} {type} />
+    {#if type == "text"}
+        <input bind:value {placeholder} type="text" />
+    {:else}
+        <input bind:value {placeholder} type="password" />
+    {/if}
 </label>
 
 <style lang="scss">

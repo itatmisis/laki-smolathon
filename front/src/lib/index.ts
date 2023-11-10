@@ -32,3 +32,7 @@ export type Review = {
     text: string;
     posted_at: string;
 };
+
+export function url(partial: string): string {
+    return `https://laki.itatmisis.ru/backend/${partial}`;
+}
