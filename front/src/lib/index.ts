@@ -16,7 +16,8 @@ export type IconKind =
     | "edit"
     | "plus"
     | "minus"
-    | "back";
+    | "back"
+    | "forward";
 
 export type JournalEntry = {
     user_photo: string | undefined;

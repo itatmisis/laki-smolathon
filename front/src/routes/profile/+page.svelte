@@ -1,36 +1,44 @@
 <script>
+    import Hr from "$lib/Hr.svelte";
+    import Statistics from "../journal/Statistics.svelte";
+    import Achievement from "./Achievements.svelte";
+    import GotoButton from "./GotoButton.svelte";
     import ProfileInfo from "./ProfileInfo.svelte";
+    import SimpleButton from "./SimpleButton.svelte";
 </script>
 
 <section>
     <ProfileInfo name="Ivan Pirogov" />
-    <hr/>
-    <!-- <nav>
-        {#each ["Мой дневник", "Мои достижения", "Мои отзывы", "Мои подписки"] as entry}
-            <button>
-                <span>{entry}</span>
-                <Icon kind="arrow-right" />
-            </button>
-            <hr />
-        {/each}
-    </nav> -->
+    <Statistics />
+    <Hr />
+    <GotoButton text="Мои достижения" />
+    <Hr />
+    <Achievement />
+    <Hr />
+    <GotoButton text="Мои реакции" />
+    <Hr />
     <menu>
-        <button>Сменить язык</button>
-        <button>Выйти</button>
-        <button>Удалить аккаунт</button>
+        <SimpleButton text="Управление паролем" />
+        <SimpleButton text="Сменить язык" />
+        <SimpleButton text="Выйти" />
+        <SimpleButton text="Удалить аккаунт" />
     </menu>
 </section>
 
 <style lang="scss">
     section {
         flex: 1;
-        margin: 20px;
+        padding: 16px;
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        align-items: stretch;
+        gap: 8px;
         max-height: calc(100vh - 60px - 2 * 20px);
-        hr {
-            margin: 0 -20px;
+        overflow-y: scroll;
+        menu {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
         }
     }
 </style>
