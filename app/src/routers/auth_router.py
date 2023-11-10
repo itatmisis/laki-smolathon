@@ -25,4 +25,3 @@ async def route_registration(user_reg: UserCreate):
 async def route_login(login_form: OAuth2PasswordRequestForm = Depends()):
     user_data = await login_user(login_form.username, login_form.password)
     return user_data
-
