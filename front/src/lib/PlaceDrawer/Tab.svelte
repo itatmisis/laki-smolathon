@@ -14,7 +14,7 @@
 <style lang="scss">
     button {
         display: flex;
-        gap: 5px;
+        gap: 4px;
         align-items: center;
         background-color: white;
         border: 1px solid #727272;
@@ -29,10 +29,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #d9d9d9;
-            background-color: #727272;
+            color: var(--black);
+            background-color: var(--gray-system);
             width: 16px;
             height: 16px;
+            border-radius: 2px;
         }
     }
 </style>

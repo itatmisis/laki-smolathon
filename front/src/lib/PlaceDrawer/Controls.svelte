@@ -1,6 +1,5 @@
 <script lang="ts">
     export let main_button: "route" | "review";
-    $: main_button_color = main_button == "route" ? "#ff0000" : "#fe9a28";
 </script>
 
 <div class="controls">
@@ -9,11 +8,11 @@
         <button class="journal">Перейти к дневнику</button>
     </div>
     <div class="row">
-        <button class="main" style:background-color={main_button_color}>
+        <button class="main">
             {#if main_button == "route"}
                 Построить маршрут
                 <br />
-                <span class="secondary-text">Яндекс.Карты &dash;&dash;&gt;</span>
+                <span class="small">Яндекс.Карты &dash;&dash;&gt;</span>
             {:else if main_button == "review"}
                 Написать отзыв
             {/if}
@@ -33,9 +32,9 @@
         }
     }
     button {
-        color: white;
-        background-color: #727272;
-        border: 0;
+        color: var(--black);
+        background-color: var(--white1);
+        border: 1px solid var(--gray-system);
         border-radius: 8px;
         flex: 1;
         padding: 10px;
@@ -47,6 +46,12 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            color: var(--white1);
+            background-color: var(--emphis2);
+            font-size: 15px;
+            .small {
+                font-size: 13px;
+            }
         }
     }
 </style>
