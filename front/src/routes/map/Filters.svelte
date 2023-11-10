@@ -27,7 +27,7 @@
             justify-content: center;
             gap: 4px;
 
-            padding: 12px 8px;
+            padding: 8px 12px;
             --icon-size: 20px;
 
             border-radius: 8px;
