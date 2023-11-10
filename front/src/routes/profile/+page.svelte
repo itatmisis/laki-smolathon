@@ -1,6 +1,5 @@
 <script>
-    import Icon from "$lib/Icon.svelte";
-    import ProfileInfo from "../ProfileInfo.svelte";
+    import ProfileInfo from "./ProfileInfo.svelte";
 </script>
 
 <section>
