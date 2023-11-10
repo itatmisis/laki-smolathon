@@ -7,13 +7,17 @@
     import Tabs from "./Tabs.svelte";
     import Controls from "./Controls.svelte";
     import Reviews from "./Reviews.svelte";
+    import type { Place } from "$lib/core/places";
 
+    export let place: Place;
+
+    let pane: CupertinoPane;
     onMount(async () => {
         let settings: CupertinoSettings = {
             bottomClose: true
         };
         let myPane = new CupertinoPane(".cupertino-pane", settings);
-        await myPane.present({ animate: true });
+        pane = await myPane.present({ animate: true });
     });
 
     let type: "mini" | "info" | "reviews" = "mini";
@@ -21,18 +25,18 @@
 
 <div class="cupertino-pane">
     <header>
-        <CategoryChip category="Собор" />
+        <CategoryChip category={place.category} />
         <PlaceHeader
-            title="Собор святой Богородицы"
-            address1="ул. Клюшкина, д. 106"
-            address2="137568, Смоленская область, г. Смоленск"
+            title={place.name}
+            address1={place.address.line1}
+            address2={place.address.line2}
         />
     </header>
     <Tabs bind:type />
     {#if type == "mini"}
         <Controls main_button="route" />
     {:else if type == "info"}
-        <Description />
+        <Description {place}/>
         <Controls main_button="route" />
     {:else if type == "reviews"}
         <Reviews />
@@ -56,6 +60,6 @@
         margin: -20px;
         padding: 20px;
         margin-bottom: 0;
-        padding-bottom: 10px
+        padding-bottom: 10px;
     }
 </style>

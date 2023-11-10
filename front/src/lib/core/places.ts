@@ -7,34 +7,45 @@ export function getListOfPlaces(filter: Filter) {
 
 export type Place = {
     name: string;
-    description: string;
+    /** HTML */
+    description: Description;
     category: Category;
     location: LngLat;
+    address: {
+        line1: string;
+        line2: string;
+    }
 };
+
+export type Description = { kind: "text" | "image", content: string }[];
 
 export type Category = (typeof Categories)[number];
 
 const Categories = ["Музеи", "Храмы", "Соборы", "Памятники"] as const;
 
-export function PlacesList(): Place[] {
-    return [
-        { name: "", category: "Музеи", description: "", location: [32.050440, 54.779149] },
-        { name: "", category: "Музеи", description: "", location: [32.039652, 54.784326] },
-        { name: "", category: "Музеи", description: "", location: [32.038918, 54.783035] },
-        { name: "", category: "Музеи", description: "", location: [32.038919, 54.783035] },
-        { name: "", category: "Музеи", description: "", location: [32.043420, 54.773421] },
-        { name: "", category: "Музеи", description: "", location: [32.041720, 54.781649] },
-        { name: "", category: "Музеи", description: "", location: [32.047657, 54.772328] },
-        { name: "", category: "Музеи", description: "", location: [32.047674, 54.782107] },
-        { name: "", category: "Музеи", description: "", location: [32.054602, 54.788829] },
-        { name: "", category: "Музеи", description: "", location: [32.020403, 54.791456] },
-        { name: "", category: "Музеи", description: "", location: [32.053246, 54.773294] },
-        { name: "", category: "Музеи", description: "", location: [32.053128, 54.778505] },
-        { name: "", category: "Музеи", description: "", location: [32.044505, 54.777941] },
-        { name: "", category: "Музеи", description: "", location: [32.059094, 54.780337] },
-        { name: "", category: "Музеи", description: "", location: [32.053081, 54.778505] },
-        { name: "", category: "Музеи", description: "", location: [32.059972, 54.781137] },
-        { name: "", category: "Музеи", description: "", location: [32.046122, 54.780461] },
-        { name: "", category: "Музеи", description: "", location: [32.049970, 54.782356] }
-    ]
+export function PlacesList(): Record<number, Place> {
+    return {
+        0: { name: "", category: "Музеи", description: [], location: [32.050440, 54.779149], address: { line1: "", line2: "" } },
+        1: { name: "", category: "Музеи", description: [], location: [32.039652, 54.784326], address: { line1: "", line2: "" } },
+        // 2: { name: "", category: "Музеи", description: "", location: [32.038918, 54.783035], address: { line1: "", line2: "" } },
+        // 3: { name: "", category: "Музеи", description: "", location: [32.038919, 54.783035], address: { line1: "", line2: "" } },
+        // 4: { name: "", category: "Музеи", description: "", location: [32.043420, 54.773421], address: { line1: "", line2: "" } },
+    };
+}
+
+export function place(id: number): Place {
+    return {
+        name: "Собор святой Богородицы",
+        location: [0, 0],
+        address: {
+            line1: "ул. Клюшкина, д. 106",
+            line2: "137568, Смоленская область, г. Смоленск",
+        },
+        description: [
+            { kind: "text", content: "Основан Владимиром Мономахом, который положил начало каменному строительству на северо-востоке Руси." },
+            { kind: "image", content: "https://www.pravmir.ru/wp-content/uploads/2018/11/2017_10_22-035_04-900x504.jpg" },
+            { kind: "text", content: "3 июня 1611 года после 20-месячной осады польский король Сигизмунд III захватил город. Собор стал последним рубежом обороны смолян. По одной из версий, оставшиеся в живых защитники, поняв, что не смогут остановить врага, героически погибли, взорвав пороховой погреб под собором. Однако захватчики не стали разрушать собор. Они перекрыли его досками и устроили в нем костел." },
+        ],
+        category: "Соборы",
+    };
 }

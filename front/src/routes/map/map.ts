@@ -2,7 +2,8 @@ import type { DomEventHandlerObject, LngLat, YMap, YMapListener } from "@yandex/
 import Marker from "./Marker.svelte";
 import type { IconKind } from "$lib";
 import type { Feature } from "@yandex/ymaps3-types/packages/clusterer";
-import { PlacesList } from "$lib/core/places";
+import { place, PlacesList } from "$lib/core/places";
+import PlaceDrawer from "$lib/PlaceDrawer/PlaceDrawer.svelte";
 
 const center: LngLat = [32.045287, 54.782635];
 const zoom = 10;
@@ -27,29 +28,48 @@ export async function InitMap(mapElem: HTMLElement) {
     map.addChild(new YMapDefaultFeaturesLayer({}));
     map.addChild(createCallbacks());
 
-    AddCallbacks(map);
-
     await initClusterer(map);
 }
 
 async function initClusterer(map: YMap) {
     const { YMapClusterer, clusterByGrid } = await ymaps3.import("@yandex/ymaps3-clusterer@0.0.1");
 
-    const points: Feature[] = markers.map((marker, i) => ({
-        type: "Feature",
-        id: i.toString(),
-        geometry: { coordinates: marker.location, type: "Point" },
-        properties: {}
-    }));
+    const points: Feature[] = [];
+    for (const [key, place] of Object.entries(markers)) {
+        points.push({
+            type: "Feature",
+            id: key,
+            geometry: { coordinates: place.location, type: "Point" },
+            properties: {}
+        });
+    }
 
-    const marker = (feature: Feature) =>
-        new ymaps3.YMapMarker(
-            { coordinates: feature.geometry.coordinates },
-            createMarkerElement("heart")
+    const marker = (feature: Feature) => {
+        let id = feature.id;
+        let kind: IconKind = "heart";
+
+        const markerElement = document.createElement("div");
+        new Marker({ target: markerElement, props: { id, kind } });
+        return new ymaps3.YMapMarker(
+            {
+                coordinates: feature.geometry.coordinates,
+                properties: { id }
+            },
+            markerElement
         );
+    }
 
-    const cluster = (coordinates: LngLat, features: Array<Feature>) =>
-        new ymaps3.YMapMarker({ coordinates }, createMarkerElement(features.length));
+    const cluster = (coordinates: LngLat, features: Array<Feature>) => {
+        let id = features.map(f => f.id);
+        let kind = features.length;
+
+        const markerElement = document.createElement("div");
+        new Marker({ target: markerElement, props: { id, kind } });
+        return new ymaps3.YMapMarker(
+            { coordinates, properties: { id } },
+            markerElement
+        );
+    };
 
     const clusterer = new YMapClusterer({
         method: clusterByGrid({ gridSize: 64 }),
@@ -66,7 +86,14 @@ function createCallbacks(): YMapListener {
 
     const clickCallback = (object: DomEventHandlerObject) => {
         if (object && object.type == "marker") {
-            console.log(object.entity.element);
+            let id = object.entity.properties?.id as string | string[] | undefined;
+            if (typeof id == "string") {
+                const target = document.createElement("div");
+                document.body.appendChild(target);
+                new PlaceDrawer({ target, props: { place: place(0) } });
+            } else if (typeof id == "object") {
+                console.log(id);
+            }
         }
     };
 
@@ -76,29 +103,4 @@ function createCallbacks(): YMapListener {
     });
 
     return mapListener;
-}
-
-function createMarkerElement(content: IconKind | number): HTMLElement {
-    const markerElement = document.createElement("div");
-    new Marker({ target: markerElement, props: { kind: content } });
-    return markerElement;
-}
-
-function AddCallbacks(map: YMap) {
-    const { YMapListener } = ymaps3;
-
-    const clickCallback = (object: DomEventHandlerObject) => {
-        if (!object || object.type != "marker") {
-            return;
-        }
-        console.log(object.entity);
-        alert("Нажатие на маркер!")
-    };
-
-    const mapListener = new YMapListener({
-        layer: "any",
-        onClick: clickCallback
-    });
-
-    map.addChild(mapListener);
 }

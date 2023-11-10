@@ -1,11 +1,12 @@
 <script lang="ts">
     import type { IconKind } from "$lib";
 
+    export let id: string | string[];
     export let kind: IconKind | number;
 </script>
 
 <!-- svelte-ignore a11y-missing-attribute -->
-<div class="marker">
+<div class="marker" data-id={id}>
     <img src={`icons/marker.svg`} />
     {#if typeof kind == "number"}
         <span>{kind}</span>
