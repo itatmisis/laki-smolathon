@@ -33,7 +33,7 @@
         box-sizing: border-box;
         margin: 0;
         padding: 0;
-        font-family: "Roboto Slab", sans-serif;
+        font-family: "Roboto Slab", serif;
     }
 
     :global(.secondary-text) {
