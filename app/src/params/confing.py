@@ -10,4 +10,3 @@ DBPORT = getenv('DBPORT', '5432')
 RESET_DB = getenv('RESET_DB', 'True')
 
 TEST = bool(getenv('RESET_DB', 'True'))
-BOT_URL = getenv('BOT_URL', 'bot.koteyko.space')
