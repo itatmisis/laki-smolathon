@@ -16,7 +16,7 @@ user_router = APIRouter(
 
 
 @user_router.get('/me', response_model=UserOut)
-async def route_get_user(current_user: dict = Depends(get_current_user)):
+async def route_get_user(current_user: UserOut = Depends(get_current_user)):
     return current_user
 
 

@@ -2,15 +2,28 @@ from sqlalchemy import delete, func, or_, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import HTTPException, status
 
-from .models.models import Users, Notes, Locations
+from .models.models import Notes
+from src.schemas.user_schemas import UserOut
 
 
-async def get_all_note(session: AsyncSession, current_user: Users) -> list | None:
+async def get_all_note(session: AsyncSession, current_user: UserOut) -> list | None:
     note_list = await session.execute(
         select(
             Notes
         ).where(
             Notes.id_user == current_user.id
+        )
+    )
+    note_list = note_list.scalars().all()
+    return note_list
+
+
+async def get_note_by_location(session: AsyncSession, id_location: int):
+    note_list = await session.execute(
+        select(
+            Notes
+        ).where(
+            Notes.id_location == id_location
         )
     )
     note_list = note_list.scalars().all()
