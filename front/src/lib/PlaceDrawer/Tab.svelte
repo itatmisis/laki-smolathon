@@ -17,14 +17,11 @@
         gap: 4px;
         align-items: center;
         background-color: white;
-        border: 1px solid #727272;
+        border: 1px solid var(--black);
         border-radius: 8px;
         padding: 4px 6px;
         font-size: 13px;
-        &.selected {
-            color: white;
-            background-color: #727272;
-        }
+
         mark {
             display: flex;
             align-items: center;
@@ -34,6 +31,13 @@
             width: 16px;
             height: 16px;
             border-radius: 2px;
+        }
+        &.selected {
+            color: var(--white1);
+            background-color: var(--black);
+            mark {
+                background-color: var(--white2);
+            }
         }
     }
 </style>
