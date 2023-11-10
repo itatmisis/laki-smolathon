@@ -1,14 +1,11 @@
 <script lang="ts">
-    import Icon from "$lib/Icon.svelte";
-    import { filter_list } from "$lib/core/filters";
+    import CategoryChip from "$lib/CategoryChip.svelte";
+    import { CategoriesIcons } from "$lib/core/places";
 </script>
 
 <menu>
-    {#each filter_list as filter}
-        <button style:background-color={filter.color}>
-            <Icon kind={filter.icon} />
-            <span>{filter.title}</span>
-        </button>
+    {#each Object.entries(CategoriesIcons) as [title, { color, icon }]}
+        <CategoryChip {title} {color} {icon}/>
     {/each}
 </menu>
 
@@ -21,22 +18,5 @@
         bottom: var(--gap);
         gap: var(--gap);
         overflow-x: scroll;
-        button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-
-            padding: 8px 12px;
-            --icon-size: 20px;
-
-            border-radius: 8px;
-            border: 0;
-
-            span {
-                color: white;
-                font-size: 13px;
-            }
-        }
     }
 </style>

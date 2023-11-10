@@ -7,9 +7,10 @@
     import Tabs from "./Tabs.svelte";
     import Controls from "./Controls.svelte";
     import Reviews from "./Reviews/Reviews.svelte";
-    import type { Place } from "$lib/core/places";
+    import { CategoriesIcons, type Place } from "$lib/core/places";
 
     export let place: Place;
+    $: _category = CategoriesIcons[place.category];
 
     let pane: CupertinoPane;
     onMount(async () => {
@@ -33,7 +34,7 @@
 
 <div class="cupertino-pane">
     <header>
-        <CategoryChip category={place.category} />
+        <CategoryChip title={place.category} color={_category.color} icon={_category.icon}/>
         <PlaceHeader
             title={place.name}
             address1={place.address.line1}

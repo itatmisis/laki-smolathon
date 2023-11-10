@@ -23,6 +23,7 @@
         --system-gray-base: #eeeeee;
         --emphis1: #ee444f;
         --emphis2: #ff9a29;
+        --emphis2-dark: #d48329;
         --emphis3: #f07f40;
         --emphis4: #dc4774;
         --success: #4ade25;

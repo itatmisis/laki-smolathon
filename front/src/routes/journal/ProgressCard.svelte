@@ -2,48 +2,57 @@
     import CategoryChip from "$lib/CategoryChip.svelte";
     import Icon from "$lib/Icon.svelte";
     import PlaceHeader from "$lib/PlaceHeader.svelte";
+    import { CategoriesIcons, type Category } from "$lib/core/places";
 
     export let title: string;
     export let address1: string;
     export let address2: string;
+    export let category: Category;
+    $: _category = CategoriesIcons[category];
+
+    let percent = 50;
+    $: _percent = `${percent}%`;
 </script>
 
 <article>
-    <button class="map"><Icon kind="map" /></button>
+    <header>
+        <CategoryChip title={category} color={_category.color} icon={_category.icon} small/>
+        <button class="map"><Icon kind="map" /></button>
+    </header>
 
-    <CategoryChip category="Собор"/>
     <PlaceHeader {title} {address1} {address2} />
     <!-- TODO: Градиент по мере заполнения дневника -->
-    <button class="edit">
+    <button class="edit" style:--progress={_percent}>
         <span>Продолжить заполнение</span>
-        <!-- svelte-ignore a11y-missing-attribute -->
-        <img src={`icons/arrow-right-long.svg`} />
+        <span>{percent.toFixed(0)}%</span>
     </button>
 </article>
 
 <style lang="scss">
     article {
-        position: relative;
         display: flex;
         flex-direction: column;
-        background-color: #d9d9d9;
+        align-items: stretch;
+
+        background-color: var(--white1);
         padding: 16px;
-        align-items: start;
         border-radius: 8px;
+        header {
+            display: flex;
+            align-items: start;
+            justify-content: space-between;
+            height: 40px;
+        }
     }
     button {
         border: 0;
         border-radius: 8px;
-        background-color: #727272;
         &.map {
-            position: absolute;
-            right: 15px;
-            top: 15px;
-
             height: 40px;
             width: 40px;
             --icon-invert: 1;
             --icon-size: 20px;
+            background-color: #727272;
         }
         &.edit {
             display: flex;
@@ -54,14 +63,19 @@
             margin-top: 15px;
 
             color: white;
+            background-color: var(--emphis2);
             font-size: 15px;
+            text-align: center;
+            background: linear-gradient(
+                to right,
+                var(--emphis2) 0%,
+                var(--emphis2) var(--progress),
+                var(--emphis2-dark) var(--progress),
+                var(--emphis2-dark) 100%
+            );
 
             height: 40px;
             align-self: stretch;
-
-            > img {
-                transform: translateY(4px);
-            }
         }
     }
 </style>
