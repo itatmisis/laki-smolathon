@@ -5,8 +5,8 @@
 
 <menu>
     {#each filter_list as filter}
-        <button>
-            <Icon kind={filter.icon}/>
+        <button style:background-color={filter.color}>
+            <Icon kind={filter.icon} />
             <span>{filter.title}</span>
         </button>
     {/each}
@@ -20,19 +20,23 @@
         right: var(--gap);
         bottom: var(--gap);
         gap: var(--gap);
-    }
-    button {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        overflow-x: scroll;
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
 
-        border-radius: 0;
-        border: 0;
-        background-color: var(--button-color, var(--background-color, white));
+            padding: 12px 8px;
+            --icon-size: 20px;
 
-        span {
-            font-size: 13px;
+            border-radius: 8px;
+            border: 0;
+
+            span {
+                color: white;
+                font-size: 13px;
+            }
         }
     }
 </style>

@@ -7,12 +7,12 @@ export type Filter = {
     inside_city?: boolean;
 }
 
-export type FilterIcon = { title: string, icon: IconKind };
+export type FilterIcon = { title: string, icon: IconKind, color: string };
 
 /** List of filters to display on the map screen. */
 export const filter_list: FilterIcon[] = [
-    { title: "Музеи", icon: "heart" },
-    { title: "Храмы", icon: "heart" },
-    { title: "Соборы", icon: "heart" },
-    { title: "Памятники", icon: "heart" },
+    { title: "Памятники", icon: "monument", color: "#FF9A29" },
+    { title: "История", icon: "history", color: "#F07F40" },
+    { title: "Церкви", icon: "church", color: "#EE444F" },
+    { title: "Музеи", icon: "museum", color: "#FF9A29" },
 ];
