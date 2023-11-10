@@ -6,7 +6,11 @@ export type IconKind =
     | "profile"
     | "journal"
     | "pencil"
-    | "pointer";
+    | "pointer"
+    | "monument"
+    | "history"
+    | "church"
+    | "museum";
 
 export type JournalEntry = {
     user_photo: string | undefined;
