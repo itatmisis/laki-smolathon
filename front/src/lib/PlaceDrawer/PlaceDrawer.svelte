@@ -6,7 +6,7 @@
     import Description from "./Description.svelte";
     import Tabs from "./Tabs.svelte";
     import Controls from "./Controls.svelte";
-    import Reviews from "./Reviews.svelte";
+    import Reviews from "./Reviews/Reviews.svelte";
     import type { Place } from "$lib/core/places";
 
     export let place: Place;
@@ -48,7 +48,6 @@
         <Controls main_button="route" />
     {:else if type == "reviews"}
         <Reviews />
-        <Controls main_button="review" />
     {/if}
 </div>
 
