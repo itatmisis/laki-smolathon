@@ -17,13 +17,6 @@
 />
 
 <style lang="scss">
-    .container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: stretch;
-    }
-
     input[type="search"]:focus {
         box-shadow: 0 0 3px 0 #1183d6;
         border-color: #1183d6;
@@ -34,6 +27,7 @@
         border: 1px solid #555;
         width: 100%;
         padding: 9px 4px 9px calc(20px + 24px + 5px);
+        // TODO: check if icon is too big
         background: var(--white1)
             url("icons/search.svg")
             no-repeat 20px center;
