@@ -14,7 +14,15 @@
     let pane: CupertinoPane;
     onMount(async () => {
         let settings: CupertinoSettings = {
-            bottomClose: true
+            bottomClose: true,
+            events: {
+                onDidDismiss: () => {
+                    let elements = document.querySelectorAll(".cupertino-pane");
+                    for (const element of elements) {
+                        element.parentElement?.remove();
+                    }
+                }
+            }
         };
         let myPane = new CupertinoPane(".cupertino-pane", settings);
         pane = await myPane.present({ animate: true });
@@ -36,7 +44,7 @@
     {#if type == "mini"}
         <Controls main_button="route" />
     {:else if type == "info"}
-        <Description {place}/>
+        <Description {place} />
         <Controls main_button="route" />
     {:else if type == "reviews"}
         <Reviews />
