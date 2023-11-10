@@ -32,9 +32,9 @@
         }
     }
     button {
-        color: var(--black);
+        color: var(--emphis2);
         background-color: var(--white1);
-        border: 1px solid var(--gray-system);
+        border: 1px solid var(--emphis2);
         border-radius: 8px;
         flex: 1;
         padding: 10px;
