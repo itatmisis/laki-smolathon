@@ -1,3 +1,4 @@
+import type { IconKind } from "$lib";
 import type { LngLat } from "@yandex/ymaps3-types";
 import type { Filter } from "./filters";
 
@@ -21,7 +22,17 @@ export type Description = { kind: "text" | "image", content: string }[];
 
 export type Category = (typeof Categories)[number];
 
-const Categories = ["Музеи", "Храмы", "Соборы", "Памятники"] as const;
+export type CategoryIcon = { icon: IconKind, color: string };
+
+/** List of filters to display on the map screen. */
+export const CategoriesIcons: Record<Category, CategoryIcon> = {
+    "Памятники": { icon: "monument", color: "#FF9A29" },
+    "История": { icon: "history", color: "#F07F40" },
+    "Церкви": { icon: "church", color: "#EE444F" },
+    "Музеи": { icon: "museum", color: "#FF9A29" },
+};
+
+const Categories = ["Памятники", "История", "Церкви", "Музеи"] as const;
 
 export function PlacesList(): Record<number, Place> {
     return {
@@ -46,6 +57,6 @@ export function place(id: number): Place {
             { kind: "image", content: "https://www.pravmir.ru/wp-content/uploads/2018/11/2017_10_22-035_04-900x504.jpg" },
             { kind: "text", content: "3 июня 1611 года после 20-месячной осады польский король Сигизмунд III захватил город. Собор стал последним рубежом обороны смолян. По одной из версий, оставшиеся в живых защитники, поняв, что не смогут остановить врага, героически погибли, взорвав пороховой погреб под собором. Однако захватчики не стали разрушать собор. Они перекрыли его досками и устроили в нем костел." },
         ],
-        category: "Соборы",
+        category: "Церкви",
     };
 }
