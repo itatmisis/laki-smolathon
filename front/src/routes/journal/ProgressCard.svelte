@@ -50,9 +50,8 @@
         &.map {
             height: 40px;
             width: 40px;
-            --icon-invert: 1;
             --icon-size: 20px;
-            background-color: #727272;
+            background-color: var(--system-gray-base);
         }
         &.edit {
             display: flex;
