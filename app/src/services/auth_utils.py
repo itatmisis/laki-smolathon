@@ -19,9 +19,9 @@ def verify_password(plain_password: str, hashed_password: str):
     return auth.pwd_context.verify(plain_password, hashed_password)
 
 
-async def reg_user(login: str, password: str):
+async def reg_user(login: str, password: str, first_name: str, last_name: str):
     pass_hash = hash_password(password)
-    new_user = await db.reg_user(login, pass_hash)
+    new_user = await db.reg_user(login, pass_hash, first_name, last_name)
 
     return new_user
 

@@ -16,7 +16,7 @@ auth_router = APIRouter(
 
 @auth_router.post('/registration', response_model=UserOut, status_code=status.HTTP_201_CREATED)
 async def route_registration(user_reg: UserCreate):
-    new_user = await registration_user(user_reg.login, user_reg.password)
+    new_user = await registration_user(user_reg.login, user_reg.password, user_reg.first_name, user_reg.last_name)
     print(new_user)
     return new_user
 
