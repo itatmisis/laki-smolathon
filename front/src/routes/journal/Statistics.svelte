@@ -1,17 +1,27 @@
 <script lang="ts">
+    import type { JournalEntry } from "$lib/core/journal";
+    import { place } from "$lib/core/places";
     import StatEntry from "./StatEntry.svelte";
+
+    export let journal: JournalEntry[];
+
+    let data = [0, 0, 0, 0];
+    for (const entry of journal) {
+        let _place = place(entry.id_location);
+        _place.then(x => data[x.id_category - 1] += 1);
+    }
 </script>
 
 <div>
     <p class="overall">
-        Вы посетили <mark>88</mark> Смоленских мест<br />
-        Заполнили дневник для <mark>12</mark> из них<br />
+        Вы посетили <mark>{journal.length}</mark> Смоленских мест<br />
+        Заполнили дневник для <mark>0</mark> из них<br />
     </p>
     <div class="categories">
-        <StatEntry category="Памятники" count={5} />
-        <StatEntry category="История" count={5} />
-        <StatEntry category="Церкви" count={5} />
-        <StatEntry category="Музеи" count={5} />
+        <StatEntry category="Памятники" count={data[0]} />
+        <StatEntry category="История" count={data[1]} />
+        <StatEntry category="Церкви" count={data[2]} />
+        <StatEntry category="Музеи" count={data[3]} />
     </div>
 </div>
 

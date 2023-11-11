@@ -8,6 +8,7 @@
     import GotoButton from "./GotoButton.svelte";
     import ProfileInfo from "./ProfileInfo.svelte";
     import SimpleButton from "./SimpleButton.svelte";
+    import { journal } from "$lib/core/journal";
 
     let user: User;
     let name: string;
@@ -16,12 +17,16 @@
         user = await profile();
         name = user.first_name + " " + user.last_name;
     })
+
+    let _journal = journal();
 </script>
 
 <Wrapper>
     <section>
         <ProfileInfo {name} />
-        <Statistics />
+        {#await _journal then _journal}
+            <Statistics journal={_journal}/>
+        {/await}
         <Hr />
         <GotoButton text="Мои достижения" />
         <Hr />

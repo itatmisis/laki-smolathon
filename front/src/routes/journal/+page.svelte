@@ -1,11 +1,14 @@
-<script>
+<script lang="ts">
     import Icon from "$lib/Icon.svelte";
     import Wrapper from "$lib/Wrapper.svelte";
+    import { journal, type JournalEntry } from "$lib/core/journal";
+    import { place } from "$lib/core/places";
     import ProgressCard from "./ProgressCard.svelte";
     import Search from "./Search.svelte";
     import Statistics from "./Statistics.svelte";
 
     let search = "";
+    let _journal: Promise<JournalEntry[]> = journal();
 </script>
 
 <Wrapper>
@@ -16,15 +19,20 @@
         </button>
     </header>
     <div class="main">
-        <Statistics />
-        {#each [0, 1, 2, 3, 4] as i}
-            <ProgressCard
-                title="Собор святой Богородицы"
-                address1="ул. Клюшкина, д. 106"
-                address2="137568, Смоленская область, г. Смоленск"
-                category={"Церкви"}
-            />
-        {/each}
+        {#await _journal then _journal}
+            <Statistics journal={_journal}/>
+            {#each _journal as entry}
+                {@const _place = place(entry.id_location)}
+                {#await _place then _place}
+                    <ProgressCard
+                        title={_place.name}
+                        address1={_place.address.line1}
+                        address2={_place.address.line2}
+                        category={_place.category}
+                    />
+                {/await}
+            {/each}
+        {/await}
     </div>
 </Wrapper>
 

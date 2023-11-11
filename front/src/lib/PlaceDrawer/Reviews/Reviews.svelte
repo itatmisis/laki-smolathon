@@ -1,27 +1,25 @@
 <script lang="ts">
-    import type { Review as ReviewType } from "$lib";
+    import { journal_by_location, type JournalEntry } from "$lib/core/journal";
     import Controls from "../Controls.svelte";
     import CreateReview from "./CreateReview.svelte";
     import Review from "./Review.svelte";
 
-    let photos: Promise<string> = Promise.reject();
+    export let id: number;
 
-    let _reviews: ReviewType[] = [
-        { name: "Иван Иванов", text: "Lorem impsum", photo: "icons/heart.svg", posted_at: "2022.02.02" },
-        { name: "Рома Романов", text: "Lorem impsum", photo: "icons/heart.svg", posted_at: "2022.02.02" }
-    ];
-    let reviews: Promise<ReviewType[]> = Promise.resolve(_reviews);
+    let photos: Promise<string> = Promise.reject();
+    let reviews: Promise<JournalEntry[]> = journal_by_location(id);
 
     let writing_self: boolean = false;
 </script>
 
 <section>
-    {#if writing_self}
+    {#if !writing_self}
         <div class="photos">
             {#await photos}
                 Loading...
             {:then photos}
                 {#each photos as photo}
+                    <!-- svelte-ignore a11y-missing-attribute -->
                     <img src={photo}/>
                 {/each}
             {/await}
@@ -35,7 +33,7 @@
                 {/each}
             {/await}
         </section>
-        <Controls main_button="review" />
+        <Controls {id} main_button="review" />
     {:else}
         <CreateReview />
     {/if}

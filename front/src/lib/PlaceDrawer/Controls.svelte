@@ -1,10 +1,13 @@
 <script lang="ts">
+    import { check } from "$lib/core/journal";
+
+    export let id: number;
     export let main_button: "route" | "review";
 </script>
 
 <div class="controls">
     <div class="row">
-        <button class="check">Отметиться</button>
+        <button class="check" on:click={() => check(id)}>Отметиться</button>
         <button class="journal">Перейти к дневнику</button>
     </div>
     <div class="row">

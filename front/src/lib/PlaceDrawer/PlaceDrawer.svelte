@@ -43,12 +43,12 @@
     </header>
     <Tabs bind:type />
     {#if type == "mini"}
-        <Controls main_button="route" />
+        <Controls id={place.id} main_button="route" />
     {:else if type == "info"}
         <Description {place} />
-        <Controls main_button="route" />
+        <Controls id={place.id} main_button="route" />
     {:else if type == "reviews"}
-        <Reviews />
+        <Reviews id={place.id} />
     {/if}
 </div>
 

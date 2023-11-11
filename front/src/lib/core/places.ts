@@ -38,7 +38,7 @@ export const CategoriesIcons: Record<Category, CategoryIcon> = {
 const Categories = ["Памятники", "История", "Церкви", "Музеи"] as const;
 
 export async function PlacesList(): Promise<Place[]> {
-    let response = await fetch(url("map/location"));
+    let response = await secure_fetch("map/location");
     let json: Array<any> = await response.json();
     let list: Array<Place> = [];
     for (const entry of json) {
@@ -53,6 +53,13 @@ export async function place(id: number): Promise<Place> {
     return shit_to_place(json);
 }
 
+let categories = {
+    "1": { "name": "Памятники" },
+    "2": { "name": "Церкви" },
+    "3": { "name": "История" },
+    "4": { "name": "Музеи" }
+} as const;
+
 function shit_to_place(shit: any): Place {
     return {
         id: shit.id,
@@ -61,9 +68,9 @@ function shit_to_place(shit: any): Place {
             line1: shit.address,
             line2: ""
         },
-        category: "История", // TODO
+        category: categories[shit.id_category as "1" | "2" | "3" | "4"].name as any, // TODO
         id_category: shit.id_category,
-        description: [{ kind: "text", content: shit.description}],
+        description: [{ kind: "text", content: shit.description }],
         location: [shit.coord_x, shit.coord_y]
     };
 }
