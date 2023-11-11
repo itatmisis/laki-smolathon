@@ -48,7 +48,6 @@ export async function PlacesList(): Promise<Place[]> {
 }
 
 export async function place(id: number): Promise<Place> {
-    console.log(id);
     let response = await fetch(url(`map/location/${id}`));
     let json = await response.json();
     return shit_to_place(json);
