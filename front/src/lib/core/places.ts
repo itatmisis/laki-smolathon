@@ -1,11 +1,6 @@
-import { url, type IconKind } from "$lib";
+import type { IconKind } from "$lib";
 import type { LngLat } from "@yandex/ymaps3-types";
 import { secure_fetch } from "./auth";
-import type { Filter } from "./filters";
-
-export function getListOfPlaces(filter: Filter) {
-    // TODO
-}
 
 export type Place = {
     id: number;
@@ -48,7 +43,7 @@ export async function PlacesList(): Promise<Place[]> {
 }
 
 export async function place(id: number): Promise<Place> {
-    let response = await fetch(url(`map/location/${id}`));
+    let response = await secure_fetch(`map/location/${id}`);
     let json = await response.json();
     return shit_to_place(json);
 }
