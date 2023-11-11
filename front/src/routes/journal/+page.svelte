@@ -20,20 +20,16 @@
     </header>
     <div class="main">
         {#await _journal then _journal}
-            <Statistics journal={_journal}/>
+            <Statistics journal={_journal} />
             {#each _journal as entry}
                 {@const _place = place(entry.id_location)}
                 {#await _place then _place}
-                    <ProgressCard
-                        title={_place.name}
-                        address1={_place.address.line1}
-                        address2={_place.address.line2}
-                        category={_place.category}
-                    />
+                    <ProgressCard place={_place} />
                 {/await}
             {/each}
         {/await}
     </div>
+    <button class="download">Скачать pdf</button>
 </Wrapper>
 
 <style lang="scss">
@@ -58,5 +54,17 @@
         display: flex;
         flex-direction: column;
         overflow-y: scroll;
+    }
+    .download {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--emphis1);
+        height: 40px;
+        border: 0;
+        border-radius: 8px;
+        color: var(--white1);
+        font-size: 15px;
+        margin: 20px;
     }
 </style>

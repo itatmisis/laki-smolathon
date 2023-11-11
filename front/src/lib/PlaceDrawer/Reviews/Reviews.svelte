@@ -1,7 +1,6 @@
 <script lang="ts">
     import { journal_by_location, type JournalEntry } from "$lib/core/journal";
     import Controls from "../Controls.svelte";
-    import CreateReview from "./CreateReview.svelte";
     import Review from "./Review.svelte";
 
     export let id: number;
@@ -13,30 +12,26 @@
 </script>
 
 <section>
-    {#if !writing_self}
-        <div class="photos">
-            {#await photos}
-                Loading...
-            {:then photos}
-                {#each photos as photo}
-                    <!-- svelte-ignore a11y-missing-attribute -->
-                    <img src={photo}/>
-                {/each}
-            {/await}
-        </div>
-        <section class="reviews">
-            {#await reviews}
-                Loading...
-            {:then reviews}
-                {#each reviews as review}
-                    <Review {review}/>
-                {/each}
-            {/await}
-        </section>
-        <Controls {id} main_button="review" />
-    {:else}
-        <CreateReview />
-    {/if}
+    <div class="photos">
+        {#await photos}
+            Loading...
+        {:then photos}
+            {#each photos as photo}
+                <!-- svelte-ignore a11y-missing-attribute -->
+                <img src={photo}/>
+            {/each}
+        {/await}
+    </div>
+    <section class="reviews">
+        {#await reviews}
+            Loading...
+        {:then reviews}
+            {#each reviews as review}
+                <Review {review}/>
+            {/each}
+        {/await}
+    </section>
+    <Controls {id} main_button="review" />
 </section>
 
 <style lang="scss">

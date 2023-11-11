@@ -35,3 +35,8 @@ export async function journal_by_location(id: number): Promise<JournalEntry[]> {
     console.log(list);
     return list;
 }
+
+export async function journal_by_id(id: number): Promise<JournalEntry> {
+    let response = await secure_fetch(`journal/note/${id}`);
+    return await response.json();
+}

@@ -1,30 +1,32 @@
 <script lang="ts">
+    import { goto } from "$app/navigation";
     import CategoryChip from "$lib/CategoryChip.svelte";
     import Icon from "$lib/Icon.svelte";
     import PlaceHeader from "$lib/PlaceHeader.svelte";
-    import { CategoriesIcons, type Category } from "$lib/core/places";
+    import { CategoriesIcons, type Category, type Place } from "$lib/core/places";
 
-    export let title: string;
-    export let address1: string;
-    export let address2: string;
-    export let category: Category;
-    $: _category = CategoriesIcons[category];
+    export let place: Place;
+    $: _category = CategoriesIcons[place.category];
 
-    let percent = 50;
+    let percent = 100;
     $: _percent = `${percent}%`;
 </script>
 
 <article>
     <header>
-        <CategoryChip title={category} color={_category.color} icon={_category.icon} small/>
+        <CategoryChip title={place.category} color={_category.color} icon={_category.icon} small />
         <button class="map"><Icon kind="map" /></button>
     </header>
 
-    <PlaceHeader {title} {address1} {address2} />
+    <PlaceHeader title={place.name} address1={place.address.line1} address2={place.address.line2} />
     <!-- TODO: Градиент по мере заполнения дневника -->
-    <button class="edit" style:--progress={_percent}>
+    <button
+        class="edit"
+        style:--progress={_percent}
+        on:click={() => goto(`/journal/edit/${place.id}`)}
+    >
         <span>Продолжить заполнение</span>
-        <span>{percent.toFixed(0)}%</span>
+        <!-- TODO: <span>{percent.toFixed(0)}%</span> -->
     </button>
 </article>
 

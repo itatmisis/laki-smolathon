@@ -5,7 +5,7 @@
 </script>
 
 <!-- svelte-ignore a11y-missing-attribute -->
-<img src={`icons/${kind}.svg`} />
+<img src={`/icons/${kind}.svg`} />
 
 <style lang="scss">
     img {

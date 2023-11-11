@@ -16,6 +16,7 @@
     onMount(async () => {
         let settings: CupertinoSettings = {
             bottomClose: true,
+            fitHeight: true,
             events: {
                 onDidDismiss: () => {
                     let elements = document.querySelectorAll(".cupertino-pane");
@@ -41,7 +42,7 @@
             address2={place.address.line2}
         />
     </header>
-    <Tabs bind:type />
+    <Tabs bind:type on:change={() => pane.calcFitHeight(false)} />
     {#if type == "mini"}
         <Controls id={place.id} main_button="route" />
     {:else if type == "info"}

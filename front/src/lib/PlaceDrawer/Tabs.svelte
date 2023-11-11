@@ -1,14 +1,17 @@
 <script lang="ts">
+    import { createEventDispatcher } from "svelte";
     import Tab from "./Tab.svelte";
 
     export let type: "mini" | "info" | "reviews";
 
+    let dispatch = createEventDispatcher<{ change: undefined }>();
     function on_click(_type: typeof type) {
         if (type != _type) {
             type = _type;
         } else {
             type = "mini";
         }
+        dispatch("change");
     }
 </script>
 
