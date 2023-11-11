@@ -40,41 +40,31 @@ const Categories = ["Памятники", "История", "Церкви", "М�
 export async function PlacesList(): Promise<Place[]> {
     let response = await fetch(url("map/location"));
     let json: Array<any> = await response.json();
-    console.log(json);
     let list: Array<Place> = [];
     for (const entry of json) {
-        list.push({
-            id: entry.id,
-            name: entry.name,
-            address: {
-                line1: entry.address,
-                line2: ""
-            },
-            category: "История", // TODO
-            id_category: entry.id_category,
-            description: [{ kind: "text", content: entry.description}],
-            location: [entry.coord_x, entry.coord_y]
-        })
+        list.push(shit_to_place(entry));
     }
-    console.log(list);
     return list;
 }
 
-export function place(id: number): Place {
+export async function place(id: number): Promise<Place> {
+    console.log(id);
+    let response = await fetch(url(`map/location/${id}`));
+    let json = await response.json();
+    return shit_to_place(json);
+}
+
+function shit_to_place(shit: any): Place {
     return {
-        id: 0,
-        id_category: 0,
-        name: "Собор святой Богородицы",
-        location: [0, 0],
+        id: shit.id,
+        name: shit.name,
         address: {
-            line1: "ул. Клюшкина, д. 106",
-            line2: "137568, Смоленская область, г. Смоленск",
+            line1: shit.address,
+            line2: ""
         },
-        description: [
-            { kind: "text", content: "Основан Владимиром Мономахом, который положил начало каменному строительству на северо-востоке Руси." },
-            { kind: "image", content: "https://www.pravmir.ru/wp-content/uploads/2018/11/2017_10_22-035_04-900x504.jpg" },
-            { kind: "text", content: "3 июня 1611 года после 20-месячной осады польский король Сигизмунд III захватил город. Собор стал последним рубежом обороны смолян. По одной из версий, оставшиеся в живых защитники, поняв, что не смогут остановить врага, героически погибли, взорвав пороховой погреб под собором. Однако захватчики не стали разрушать собор. Они перекрыли его досками и устроили в нем костел." },
-        ],
-        category: "Церкви",
+        category: "История", // TODO
+        id_category: shit.id_category,
+        description: [{ kind: "text", content: shit.description}],
+        location: [shit.coord_x, shit.coord_y]
     };
 }
