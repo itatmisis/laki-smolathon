@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { goto } from "$app/navigation";
     import { url } from "$lib";
     import Auth from "$lib/Auth.svelte";
 
@@ -15,8 +16,8 @@
                 last_name: "TODO" // TODO
             })
         });
-        let s = await response;
-        console.log(s);
+        await response;
+        goto(".");
     };
 </script>
 

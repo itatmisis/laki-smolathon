@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { goto } from "$app/navigation";
     import { url } from "$lib";
     import Auth from "$lib/Auth.svelte";
     import { set_token } from "$lib/core/auth";
@@ -18,6 +19,7 @@
         let body = await response.json();
         let token = body.access_token;
         set_token(token);
+        goto(".");
     };
 </script>
 
