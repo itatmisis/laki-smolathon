@@ -1,3 +1,6 @@
+import base64
+from datetime import datetime 
+
 from sqlalchemy import delete, func, or_, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import HTTPException, status
@@ -59,9 +62,22 @@ async def update_note(session: AsyncSession, note_id: int, text: str = None, pho
         )
 
     if text:
-        note.text = text
+        note.text_reaction = text
 
     if photo:
-        note.photo = photo
+        photo_as_byte = str.encode(photo)
+        photo_recovered = base64.b64decode(photo_as_byte)
+        try:
+            file_name = datetime.now().strftime("%m_%d_%Y_%H_%M_%S")
+            with open(f'./static/{file_name}.png', 'wb+') as f:
+                f.write(photo_recovered)
+        except Exception as e:
+            print(e)
+            raise HTTPException(
+                detail=f'photo data is incorrect',
+                status_code=status.HTTP_400_BAD_REQUEST
+            )
+        photo_path = f'img/{file_name}'
+        note.photo = photo_path
 
     await session.commit()

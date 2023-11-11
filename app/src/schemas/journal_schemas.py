@@ -19,6 +19,5 @@ class NoteOut(BaseModel):
         }
 
 class NoteUpdate(BaseModel):
-    text: str
-    photo: str
-
+    text: str | None
+    photo: str | None

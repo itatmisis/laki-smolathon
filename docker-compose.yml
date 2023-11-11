@@ -11,6 +11,8 @@ services:
       dockerfile: app.dockerfile
     depends_on:
       - db
+    volumes:
+      - ./static:/app/static
     ports:
       - 8000:8000
 
@@ -36,7 +38,7 @@ services:
       - ./nginx:/etc/nginx/conf.d
       - /etc/letsencrypt:/etc/letsencrypt
       - /var/www/html:/var/www/html
-      # - ./static:/etc/nginx/static_img
+      - ./static:/etc/nginx/static_img
     ports:
       - 80:80
       - 443:443
