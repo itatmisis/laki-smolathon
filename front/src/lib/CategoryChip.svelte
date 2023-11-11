@@ -33,7 +33,7 @@
         padding: 8px 12px;
         &.small {
             --icon-size: 16px;
-            padding: 6px 4px;
+            padding: 8px 4px;
         }
     }
 </style>

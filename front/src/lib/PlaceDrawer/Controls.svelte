@@ -1,10 +1,13 @@
 <script lang="ts">
+    import { check } from "$lib/core/journal";
+
+    export let id: number;
     export let main_button: "route" | "review";
 </script>
 
 <div class="controls">
     <div class="row">
-        <button class="check">Отметиться</button>
+        <button class="check" on:click={() => check(id)}>Отметиться</button>
         <button class="journal">Перейти к дневнику</button>
     </div>
     <div class="row">
@@ -32,9 +35,9 @@
         }
     }
     button {
-        color: var(--black);
+        color: var(--emphis2);
         background-color: var(--white1);
-        border: 1px solid var(--gray-system);
+        border: 1px solid var(--emphis2);
         border-radius: 8px;
         flex: 1;
         padding: 10px;
@@ -49,6 +52,7 @@
             color: var(--white1);
             background-color: var(--emphis2);
             font-size: 15px;
+            margin-bottom: 16px;
             .small {
                 font-size: 13px;
             }

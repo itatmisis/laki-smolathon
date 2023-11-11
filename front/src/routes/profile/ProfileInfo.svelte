@@ -6,7 +6,7 @@
 
 <section>
     <!-- svelte-ignore a11y-missing-attribute -->
-    <img class="profile-picture" src="https://www.techcult.ru/content/2021/9865/chelovek-drakon.jpg"/>
+    <img class="profile-picture" src="avatar.png"/>
     <div>
         <h1>{name}</h1>
         <!-- TODO: time from registration -->
@@ -20,6 +20,9 @@
         display: flex;
         align-items: center;
         gap: 20px;
+        background-color: var(--white1);
+        padding: 16px;
+        margin: -16px -16px 0 -16px;
         img {
             aspect-ratio: 1;
             width: 80px;
@@ -38,10 +41,11 @@
             }
             h2 {
                 font-size: 13px;
-                color: #727272;
+                color: var(--gray-text);
             }
         }
         button {
+            flex: 0 0 40px;
             --icon-size: 20px;
             padding: 8px;
             border-radius: 8px;

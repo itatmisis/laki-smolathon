@@ -1,4 +1,5 @@
 <script>
+    import Hr from "$lib/Hr.svelte";
     import Icon from "$lib/Icon.svelte";
 </script>
 
@@ -9,7 +10,7 @@
         </button>
         <h1>Оставьте отзыв</h1>
     </header>
-    <hr />
+    <Hr />
     <!-- TODO: Надпись "максимум 300 символов" -->
     <textarea placeholder="Скажите, что вы думаете об этом месте" />
     <label class="upload-image">
@@ -55,12 +56,6 @@
                 line-height: 24px;
                 font-weight: bold;
             }
-        }
-        hr {
-            height: 1px;
-            color: var(--white2);
-            background-color: var(--white2);
-            border-width: 0;
         }
         textarea {
             resize: none;

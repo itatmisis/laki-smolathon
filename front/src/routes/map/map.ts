@@ -6,7 +6,7 @@ import { place, PlacesList } from "$lib/core/places";
 import PlaceDrawer from "$lib/PlaceDrawer/PlaceDrawer.svelte";
 
 const center: LngLat = [32.045287, 54.782635];
-const zoom = 10;
+const zoom = 13;
 const markers = PlacesList();
 
 export let map: YMap | undefined = undefined;
@@ -35,11 +35,11 @@ async function initClusterer(map: YMap) {
     const { YMapClusterer, clusterByGrid } = await ymaps3.import("@yandex/ymaps3-clusterer@0.0.1");
 
     const points: Feature[] = [];
-    for (const [key, place] of Object.entries(markers)) {
+    for (const marker of await markers) {
         points.push({
             type: "Feature",
-            id: key,
-            geometry: { coordinates: place.location, type: "Point" },
+            id: marker.id.toFixed(0),
+            geometry: { coordinates: marker.location, type: "Point" },
             properties: {}
         });
     }
@@ -84,13 +84,13 @@ async function initClusterer(map: YMap) {
 function createCallbacks(): YMapListener {
     const { YMapListener } = ymaps3;
 
-    const clickCallback = (object: DomEventHandlerObject) => {
+    const clickCallback = async (object: DomEventHandlerObject) => {
         if (object && object.type == "marker") {
             let id = object.entity.properties?.id as string | string[] | undefined;
             if (typeof id == "string") {
                 const target = document.createElement("div");
                 document.body.appendChild(target);
-                new PlaceDrawer({ target, props: { place: place(0) } });
+                new PlaceDrawer({ target, props: { place: await place(Number(id)) } });
             } else if (typeof id == "object") {
                 console.log(id);
             }

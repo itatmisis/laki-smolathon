@@ -34,7 +34,7 @@
 
 <div class="cupertino-pane">
     <header>
-        <CategoryChip title={place.category} color={_category.color} icon={_category.icon}/>
+        <CategoryChip title={place.category} color={_category.color} icon={_category.icon} small />
         <PlaceHeader
             title={place.name}
             address1={place.address.line1}
@@ -43,12 +43,12 @@
     </header>
     <Tabs bind:type />
     {#if type == "mini"}
-        <Controls main_button="route" />
+        <Controls id={place.id} main_button="route" />
     {:else if type == "info"}
         <Description {place} />
-        <Controls main_button="route" />
+        <Controls id={place.id} main_button="route" />
     {:else if type == "reviews"}
-        <Reviews />
+        <Reviews id={place.id} />
     {/if}
 </div>
 
@@ -64,6 +64,8 @@
         background-color: white;
         display: flex;
         flex-direction: column;
+        gap: 8px;
+
         align-items: start;
         margin: -20px;
         padding: 20px;
