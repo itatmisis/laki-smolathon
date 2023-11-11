@@ -15,9 +15,9 @@ map_router = APIRouter(
     prefix='/map'
 )
 
-@map_router.get('/location')
-async def route_get_all_locations():
-    all_location = await get_all_locations()
+@map_router.get('/location', response_model=list[GetLocation])
+async def route_get_all_locations(current_user: UserOut = Depends(get_current_user)):
+    all_location = await get_all_locations(current_user.id)
     return all_location
 
 

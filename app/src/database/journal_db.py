@@ -6,15 +6,14 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import HTTPException, status
 
 from .models.models import Notes
-from src.schemas.user_schemas import UserOut
 
 
-async def get_all_note(session: AsyncSession, current_user: UserOut) -> list | None:
+async def get_all_note(session: AsyncSession, user_id: int) -> list | None:
     note_list = await session.execute(
         select(
             Notes
         ).where(
-            Notes.id_user == current_user.id
+            Notes.id_user == user_id
         )
     )
     note_list = note_list.scalars().all()

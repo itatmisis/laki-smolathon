@@ -3,16 +3,27 @@ import requests
 
 from src.database.db import async_session
 import src.database.map_db as db
+import src.database.journal_db as j_db
 import src.services.auth_utils as auth
 from src.schemas.map_schemas import NewLocation, NewCategory
 
 # from src.database.models.models import Users, Locations
 
 
-async def get_all_locations():
+async def get_all_locations(user_id: int):
     all_location = []
     async with async_session() as session:
-        all_location = await db.get_all_locations(session)
+        location_list = await db.get_all_locations(session)
+        note_list = await j_db.get_all_note(session, user_id)
+        loc_id_set = [note.id_location for note in note_list]
+        loc_id_set = set(loc_id_set)
+
+        for location in location_list:
+            sub_loc = location.__dict__
+            sub_loc.pop('_sa_instance_state')
+            sub_loc['has_visited'] = True if location.id in loc_id_set else False
+            all_location.append(sub_loc)
+
     return all_location
 
 
