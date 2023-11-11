@@ -77,7 +77,7 @@ async def update_note(session: AsyncSession, note_id: int, text: str = None, pho
                 detail=f'photo data is incorrect',
                 status_code=status.HTTP_400_BAD_REQUEST
             )
-        photo_path = f'img/{file_name}'
+        photo_path = f'img/{file_name}.png'
         note.photo = photo_path
 
     await session.commit()
