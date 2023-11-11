@@ -69,5 +69,5 @@ class Events(Base):
     coord_y = Column(Float)
 
     event_date = Column(String)
-    price = Column(Integer)
+    price = Column(String)
     link = Column(String)
