@@ -37,15 +37,6 @@ async def create_location_list(session: AsyncSession, location_list: list[NewLoc
     await session.commit()
 
 
-async def create_category_list(session: AsyncSession, category_list: list[NewCategory]):
-    for new_category in category_list:
-        session.add(
-            Categories(**new_category.dict())
-        )
-
-    await session.commit()
-
-
 async def visit_location(session: AsyncSession, user_id: int, location_id: int):
     location = await get_location_by_id(session, location_id)
     if not location:
@@ -75,4 +66,23 @@ async def visit_location(session: AsyncSession, user_id: int, location_id: int):
     )
 
     session.add(note)
+    await session.commit()
+
+
+async def get_all_category(session: AsyncSession):
+    category_list = await session.execute(
+        select(
+            Categories
+        )
+    )
+    category_list = category_list.scalars().all()
+    return category_list
+
+
+async def create_category_list(session: AsyncSession, category_list: list[NewCategory]):
+    for new_category in category_list:
+        session.add(
+            Categories(**new_category.dict())
+        )
+
     await session.commit()

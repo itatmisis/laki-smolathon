@@ -31,9 +31,9 @@ class Notes(Base):
     id = Column(Integer, primary_key=True)
     id_user = Column(Integer, ForeignKey('users.id')) # primary_key=True)
     id_location = Column(Integer, ForeignKey('locations.id')) # primary_key=True)
-    text = Column(String, nullable=True)
+    text_reaction = Column(String, nullable=True)
     photo = Column(String, nullable=True)
-
+    marked_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
     user = relationship('Users', back_populates='note')
     location = relationship('Locations', back_populates='note')
 

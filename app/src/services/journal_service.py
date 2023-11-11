@@ -1,15 +1,24 @@
 from fastapi import HTTPException, status
 import requests
 
+from src.schemas.user_schemas import UserOut
 from src.database.db import async_session
 import src.database.journal_db as db
 import src.services.auth_utils as auth
 # from src.database.models.models import Users, Locations
 
-async def get_all_note(current_user: dict):
+async def get_all_note(current_user: UserOut):
     note_list = []
     async with async_session() as session:
         note_list = await db.get_all_note(session, current_user)
+
+    return note_list
+
+
+async def get_note_by_location(location_id: int):
+    note_list = []
+    async with async_session() as session:
+        note_list = await db.get_note_by_location(session, location_id)
 
     return note_list
 
