@@ -6,7 +6,7 @@ import { place, PlacesList } from "$lib/core/places";
 import PlaceDrawer from "$lib/PlaceDrawer/PlaceDrawer.svelte";
 
 const center: LngLat = [32.045287, 54.782635];
-const zoom = 10;
+const zoom = 13;
 const markers = PlacesList();
 
 export let map: YMap | undefined = undefined;
