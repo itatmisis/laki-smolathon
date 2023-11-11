@@ -46,3 +46,20 @@ async def route_get_all_category():
 @map_router.post('/category')
 async def route_create_category_list(category_list: list[NewCategory]):
     await create_category_list(category_list)
+
+
+@map_router.get('/location/event', response_model=list[GetEvent])
+async def route_get_all_events(current_user: UserOut = Depends(get_current_user)):
+    all_events = await get_all_events()
+    return all_events
+
+
+@map_router.get('/location/event/{event_id}', response_model=GetEvent)
+async def route_get_event_by_id(event_id: int, current_user: UserOut = Depends(get_current_user)):
+    event = await get_event_by_id(event_id)
+    return event
+
+
+@map_router.post('/location/event')
+async def route_create_events_list(event_list: list[NewEvent]):
+    await create_events_list(event_list)

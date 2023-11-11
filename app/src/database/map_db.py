@@ -2,8 +2,8 @@ from sqlalchemy import delete, func, or_, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import HTTPException, status
 
-from .models.models import Users, Locations, Notes, Categories
-from src.schemas.map_schemas import NewLocation, NewCategory
+from .models.models import Users, Locations, Notes, Categories, Events
+from src.schemas.map_schemas import NewLocation, NewCategory, NewEvent
 
 
 async def get_all_locations(session: AsyncSession):
@@ -83,6 +83,37 @@ async def create_category_list(session: AsyncSession, category_list: list[NewCat
     for new_category in category_list:
         session.add(
             Categories(**new_category.dict())
+        )
+
+    await session.commit()
+
+
+async def get_all_events(session: AsyncSession):
+    events_list = await session.execute(
+        select(
+            Events
+        )
+    )
+    events_list = events_list.scalars().all()
+    return events_list
+
+
+async def get_event_by_id(session: AsyncSession, event_id: int):
+    event = await session.execute(
+        select(
+            Events
+        ).where(
+            Events.id == event_id
+        )
+    )
+    event = event.scalar_one_or_none()
+    return event
+
+
+async def create_events_list(session: AsyncSession, event_list: list[NewEvent]):
+    for new_event in event_list:
+        session.add(
+            Events(**new_event.dict())
         )
 
     await session.commit()

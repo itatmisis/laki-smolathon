@@ -58,9 +58,16 @@ class Categories(Base):
     name = Column(String)
 
 
-# class Tests(Base):
-#     pass
+class Events(Base):
+    __tablename__ = 'events'
+    id = Column(Integer, primary_key=True, autoincrement=True, unique=True)
+    id_category = Column(Integer, ForeignKey('category.id'))
+    name = Column(String)
+    description = Column(String)
+    address = Column(String)
+    coord_x = Column(Float)
+    coord_y = Column(Float)
 
-
-# class Achievements(Base):
-#     pass
+    event_date = Column(String)
+    price = Column(Integer)
+    link = Column(String)

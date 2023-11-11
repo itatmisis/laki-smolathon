@@ -5,7 +5,7 @@ from src.database.db import async_session
 import src.database.map_db as db
 import src.database.journal_db as j_db
 import src.services.auth_utils as auth
-from src.schemas.map_schemas import NewLocation, NewCategory
+from src.schemas.map_schemas import NewLocation, NewCategory, NewEvent
 
 # from src.database.models.models import Users, Locations
 
@@ -62,3 +62,22 @@ async def get_all_category():
 async def create_category_list(category_list: list[NewCategory]):
     async with async_session() as session:
         await db.create_category_list(session, category_list)
+
+
+async def get_all_events():
+    all_events = []
+    async with async_session() as session:
+        all_events = await db.get_all_events(session)
+    return all_events
+
+
+async def get_event_by_id(event_id: int):
+    event = None
+    async with async_session() as session:
+        event = await db.get_event_by_id(session, event_id)
+    return event
+
+
+async def create_events_list(event_list: list[NewEvent]):
+    async with async_session() as session:
+        await db.create_events_list(session, event_list)
