@@ -55,7 +55,7 @@ async def route_get_all_events(current_user: UserOut = Depends(get_current_user)
 
 
 @map_router.get('/location/event/{event_id}', response_model=GetEvent)
-async def route_get_event_by_id(event_id: int, current_user: UserOut = Depends(get_current_user)):
+async def route_get_event_by_id(event_id: int):
     event = await get_event_by_id(event_id)
     return event
 
