@@ -1,5 +1,6 @@
-import type { IconKind } from "$lib";
+import { url, type IconKind } from "$lib";
 import type { LngLat } from "@yandex/ymaps3-types";
+import { secure_fetch } from "./auth";
 import type { Filter } from "./filters";
 
 export function getListOfPlaces(filter: Filter) {
@@ -7,6 +8,8 @@ export function getListOfPlaces(filter: Filter) {
 }
 
 export type Place = {
+    id: number;
+    id_category: number;
     name: string;
     /** HTML */
     description: Description;
@@ -34,18 +37,33 @@ export const CategoriesIcons: Record<Category, CategoryIcon> = {
 
 const Categories = ["Памятники", "История", "Церкви", "Музеи"] as const;
 
-export function PlacesList(): Record<number, Place> {
-    return {
-        0: { name: "", category: "Музеи", description: [], location: [32.050440, 54.779149], address: { line1: "", line2: "" } },
-        1: { name: "", category: "Музеи", description: [], location: [32.039652, 54.784326], address: { line1: "", line2: "" } },
-        // 2: { name: "", category: "Музеи", description: "", location: [32.038918, 54.783035], address: { line1: "", line2: "" } },
-        // 3: { name: "", category: "Музеи", description: "", location: [32.038919, 54.783035], address: { line1: "", line2: "" } },
-        // 4: { name: "", category: "Музеи", description: "", location: [32.043420, 54.773421], address: { line1: "", line2: "" } },
-    };
+export async function PlacesList(): Promise<Place[]> {
+    let response = await fetch(url("map/location"));
+    let json: Array<any> = await response.json();
+    console.log(json);
+    let list: Array<Place> = [];
+    for (const entry of json) {
+        list.push({
+            id: entry.id,
+            name: entry.name,
+            address: {
+                line1: entry.address,
+                line2: ""
+            },
+            category: "История", // TODO
+            id_category: entry.id_category,
+            description: [{ kind: "text", content: entry.description}],
+            location: [entry.coord_x, entry.coord_y]
+        })
+    }
+    console.log(list);
+    return list;
 }
 
 export function place(id: number): Place {
     return {
+        id: 0,
+        id_category: 0,
         name: "Собор святой Богородицы",
         location: [0, 0],
         address: {

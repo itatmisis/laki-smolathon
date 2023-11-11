@@ -35,7 +35,7 @@ async function initClusterer(map: YMap) {
     const { YMapClusterer, clusterByGrid } = await ymaps3.import("@yandex/ymaps3-clusterer@0.0.1");
 
     const points: Feature[] = [];
-    for (const [key, place] of Object.entries(markers)) {
+    for (const [key, place] of Object.entries(await markers)) {
         points.push({
             type: "Feature",
             id: key,
