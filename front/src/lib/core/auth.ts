@@ -1,5 +1,4 @@
 import { url } from "$lib";
-import { get, writable, type Readable, type Writable } from "svelte/store";
 
 const name = "token";
 
@@ -9,7 +8,7 @@ function token(): string | undefined {
 }
 
 export function set_token(new_token: string) {
-    document.cookie = `token=${new_token}}`;
+    document.cookie = `token=${new_token}`;
 }
 
 export function remove_token() {
