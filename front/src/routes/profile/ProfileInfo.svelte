@@ -6,7 +6,7 @@
 
 <section>
     <!-- svelte-ignore a11y-missing-attribute -->
-    <img class="profile-picture" src="https://www.techcult.ru/content/2021/9865/chelovek-drakon.jpg"/>
+    <img class="profile-picture" src="avatar.png"/>
     <div>
         <h1>{name}</h1>
         <!-- TODO: time from registration -->
