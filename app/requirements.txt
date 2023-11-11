@@ -10,3 +10,4 @@ psycopg2-binary==2.9.5
 # dacite==1.8.1
 # fastapi-pagination==0.12.4
 requests==2.31.0
+python-multipart==0.0.6

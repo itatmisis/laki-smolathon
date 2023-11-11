@@ -3,6 +3,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from src.routers.user_router import user_router
+from src.routers.journal_router import journal_router
+from src.routers.map_router import map_router
 from src.routers.auth_router import auth_router
 from src.database.db import db_create
 
@@ -30,6 +32,8 @@ app.add_middleware(
 
 app.include_router(auth_router)
 app.include_router(user_router)
+app.include_router(journal_router)
+app.include_router(map_router)
 
 if __name__ == '__main__':
     uvicorn.run(app, host='0.0.0.0', port=8000)

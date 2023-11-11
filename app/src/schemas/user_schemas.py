@@ -1,28 +1,34 @@
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel
 
 
 class UserCreate(BaseModel):
     login: str
     password: str
+    first_name: str
+    last_name: str
+
+
+class UserUpdate(BaseModel):
+    login: str | None = None
+    password: str | None = None
+    first_name: str | None = None
+    last_name: str | None = None
 
 
 class UserOut(BaseModel):
     id: str
     login: str
+    first_name: str
+    last_name: str
     created_at: datetime
 
     class Config:
         orm_mode = True
 
 
-class UserLogin(UserCreate):
-    pass
-
-
-# TODO maybe move to another file
 class Token(BaseModel):
     access_token: str
     token_type: str
