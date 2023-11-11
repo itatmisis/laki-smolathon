@@ -27,10 +27,18 @@ async def get_all_locations(user_id: int):
     return all_location
 
 
-async def get_location_by_id(location_id: int):
+async def get_location_by_id(user_id: int, location_id: int):
     location = None
     async with async_session() as session:
+        note_list = await j_db.get_all_note(session, user_id)
+        loc_id_set = [note.id_location for note in note_list]
+        loc_id_set = set(loc_id_set)
+
         location = await db.get_location_by_id(session, location_id)
+        location = location.__dict__
+        location.pop('_sa_instance_state')
+        location['has_visited'] = True if location['id'] in loc_id_set else False
+
     return location
 
 

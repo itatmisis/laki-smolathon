@@ -22,8 +22,8 @@ async def route_get_all_locations(current_user: UserOut = Depends(get_current_us
 
 
 @map_router.get('/location/{location_id}', response_model=GetLocation)
-async def route_get_location_by_id(location_id: int):
-    location = await get_location_by_id(location_id)
+async def route_get_location_by_id(location_id: int, current_user: UserOut = Depends(get_current_user)):
+    location = await get_location_by_id(current_user.id, location_id)
     return location
 
 
