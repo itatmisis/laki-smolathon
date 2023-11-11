@@ -40,16 +40,17 @@ async function initClusterer(map: YMap) {
             type: "Feature",
             id: marker.id.toFixed(0),
             geometry: { coordinates: marker.location, type: "Point" },
-            properties: {}
+            properties: { "category": marker.category }
         });
     }
 
     const marker = (feature: Feature) => {
         let id = feature.id;
         let kind: IconKind = "heart";
+        let icon = feature.properties!["category"] as string;
 
         const markerElement = document.createElement("div");
-        new Marker({ target: markerElement, props: { id, kind } });
+        new Marker({ target: markerElement, props: { id, kind, icon } });
         return new ymaps3.YMapMarker(
             {
                 coordinates: feature.geometry.coordinates,
@@ -62,9 +63,10 @@ async function initClusterer(map: YMap) {
     const cluster = (coordinates: LngLat, features: Array<Feature>) => {
         let id = features.map(f => f.id);
         let kind = features.length;
+        let icon = "cluster";
 
         const markerElement = document.createElement("div");
-        new Marker({ target: markerElement, props: { id, kind } });
+        new Marker({ target: markerElement, props: { id, kind, icon } });
         return new ymaps3.YMapMarker(
             { coordinates, properties: { id } },
             markerElement
