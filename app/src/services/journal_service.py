@@ -7,10 +7,10 @@ import src.database.journal_db as db
 import src.services.auth_utils as auth
 # from src.database.models.models import Users, Locations
 
-async def get_all_note(current_user: UserOut):
+async def get_all_note(id_user: int):
     note_list = []
     async with async_session() as session:
-        note_list = await db.get_all_note(session, current_user)
+        note_list = await db.get_all_note(session, id_user)
 
     return note_list
 

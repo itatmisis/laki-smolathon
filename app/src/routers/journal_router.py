@@ -18,7 +18,7 @@ journal_router = APIRouter(
 
 @journal_router.get('/note', response_model=list[NoteOut])
 async def route_get_all_note(current_user: UserOut = Depends(get_current_user)):
-    all_note = await get_all_note(current_user)
+    all_note = await get_all_note(current_user.id)
     return all_note
 
 

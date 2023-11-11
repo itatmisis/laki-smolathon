@@ -15,6 +15,7 @@ class NewLocation(BaseModel):
 
 class GetLocation(NewLocation):
     id: int
+    has_visited: bool
 
     class Config:
         orm_mode = True
