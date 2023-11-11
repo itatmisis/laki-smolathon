@@ -55,11 +55,11 @@ async def route_get_all_events(current_user: UserOut = Depends(get_current_user)
 
 
 @map_router.get('/location/event/{event_id}', response_model=GetEvent)
-async def route_get_event_by_id(event_id: int):
+async def route_get_event_by_id(event_id: int, current_user: UserOut = Depends(get_current_user)):
     event = await get_event_by_id(event_id)
     return event
 
 
 @map_router.post('/location/event')
-async def route_create_events_list(event_list: list[NewEvent]):
+async def route_create_events_list(event_list: list[NewEvent], current_user: UserOut = Depends(get_current_user)):
     await create_events_list(event_list)
